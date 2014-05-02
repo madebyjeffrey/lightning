@@ -1,26 +1,27 @@
 /*
-     This file is part of libmicrohttpd
-     (C) 2007 Christian Grothoff (and other contributing authors)
-
-     This library is free software; you can redistribute it and/or
-     modify it under the terms of the GNU Lesser General Public
-     License as published by the Free Software Foundation; either
-     version 2.1 of the License, or (at your option) any later version.
-
-     This library is distributed in the hope that it will be useful,
-     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-     Lesser General Public License for more details.
-
-     You should have received a copy of the GNU Lesser General Public
-     License along with this library; if not, write to the Free Software
-     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-/**
- * @file minimal_example.c
- * @brief minimal example for how to use libmicrohttpd
- * @author Christian Grothoff
+  This file is a consideration for a design, based on the usage in some of the examples and
+  tests, experimental only.
  */
+
+#include <memory>
+#include <string>
+
+namespace lightning {
+  namespace http {
+
+    enum class options {
+      internal_select
+    };
+
+    using
+    MHD_AccessHandlerCallback
+    class server {
+      std::shared_ptr<daemon> server_;
+
+      server(options opts, unsigned short port,
+  };
+
+}
 
 #include <iostream>
 
@@ -52,8 +53,8 @@ ahc_echo (void *cls,
     }
   *ptr = NULL;                  /* reset when done */
   response = (MHD_Response*)MHD_create_response_from_buffer (strlen (me),
-					      (void *) me,
-					      MHD_RESPMEM_PERSISTENT);
+                (void *) me,
+                MHD_RESPMEM_PERSISTENT);
   ret = MHD_queue_response (connection, MHD_HTTP_OK, response);
   MHD_destroy_response (response);
   return ret;
@@ -70,13 +71,13 @@ main (int argc, char *const *argv)
       return 1;
     }
   d = MHD_start_daemon (// MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG | MHD_USE_POLL,
-			MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
-			// MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG | MHD_USE_POLL,
-			// MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+      MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+      // MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG | MHD_USE_POLL,
+      // MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         atoi (argv[1]),
                         NULL, NULL, &ahc_echo, (void*)PAGE,
-			MHD_OPTION_CONNECTION_TIMEOUT, (unsigned int) 120,
-			MHD_OPTION_END);
+      MHD_OPTION_CONNECTION_TIMEOUT, (unsigned int) 120,
+      MHD_OPTION_END);
   if (d == NULL)
     return 1;
   (void) getc (stdin);
