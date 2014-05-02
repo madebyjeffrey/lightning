@@ -268,7 +268,7 @@ void
 MHD_connection_close (struct MHD_Connection *connection,
                       enum MHD_RequestTerminationCode termination_code)
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = connection->daemon;
   if (0 == (connection->daemon->options & MHD_USE_EPOLL_TURBO))
@@ -1929,7 +1929,7 @@ parse_connection_headers (struct MHD_Connection *connection)
 static void
 update_last_activity (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon = connection->daemon;
+  lightning::daemon *daemon = connection->daemon;
 
   connection->last_activity = MHD_monotonic_time();
   if (connection->connection_timeout != daemon->connection_timeout)
@@ -2181,7 +2181,7 @@ MHD_connection_handle_write (struct MHD_Connection *connection)
 static void
 cleanup_connection (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon = connection->daemon;
+  lightning::daemon *daemon = connection->daemon;
 
   if (NULL != connection->response)
     {
@@ -2230,7 +2230,7 @@ cleanup_connection (struct MHD_Connection *connection)
 int
 MHD_connection_handle_idle (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon = connection->daemon;
+  lightning::daemon *daemon = connection->daemon;
   unsigned int timeout;
   const char *end;
   char *line;
@@ -2667,7 +2667,7 @@ MHD_connection_handle_idle (struct MHD_Connection *connection)
 int
 MHD_connection_epoll_update_ (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon = connection->daemon;
+  lightning::daemon *daemon = connection->daemon;
 
   if ( (0 != (daemon->options & MHD_USE_EPOLL_LINUX_ONLY)) &&
        (0 == (connection->epoll_state & MHD_EPOLL_STATE_IN_EPOLL_SET)) &&
@@ -2779,7 +2779,7 @@ MHD_set_connection_option (struct MHD_Connection *connection,
 			   ...)
 {
   va_list ap;
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = connection->daemon;
   switch (option)

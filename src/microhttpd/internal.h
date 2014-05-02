@@ -195,7 +195,7 @@ struct MHD_NonceNc
  * messages.
  */
 void
-MHD_DLOG (const struct MHD_Daemon *daemon,
+MHD_DLOG (const lightning::daemon *daemon,
 	  const char *format, ...);
 #endif
 
@@ -546,7 +546,7 @@ struct MHD_Connection
   /**
    * Reference to the MHD_Daemon struct.
    */
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   /**
    * Linked list of parsed headers.
@@ -887,8 +887,8 @@ typedef size_t (*UnescapeCallback)(void *cls,
  * write, locally blocked, cleanup) whereas the second is about its
  * timeout state (default or custom).
  */
-struct MHD_Daemon
-{
+namespace lightning {
+  struct daemon {
 
   /**
    * Callback function for all requests.
@@ -1037,12 +1037,12 @@ struct MHD_Daemon
   /**
    * Pointer to master daemon (NULL if this is the master)
    */
-  struct MHD_Daemon *master;
+  lightning::daemon *master;
 
   /**
    * Worker daemons (one per thread)
    */
-  struct MHD_Daemon *worker_pool;
+  lightning::daemon *worker_pool;
 
   /**
    * Table storing number of connections per IP
@@ -1249,6 +1249,7 @@ struct MHD_Daemon
   unsigned int fastopen_queue_size;
 #endif
 };
+}
 
 
 #if EXTRA_CHECKS

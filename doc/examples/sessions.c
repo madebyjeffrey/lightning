@@ -716,7 +716,7 @@ expire_sessions ()
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   struct timeval tv;
   struct timeval *tvp;
   fd_set rs;

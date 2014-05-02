@@ -84,7 +84,7 @@ discard_buffer (void *ptr, size_t size, size_t nmemb, void *ctx)
 
 int main(int argc, char **argv) 
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   fd_set rs;
   fd_set ws;
   fd_set es;

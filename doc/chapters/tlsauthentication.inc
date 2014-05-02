@@ -50,7 +50,7 @@ We merely have to extend the server program so that it loads the two files into 
 int
 main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
   char *key_pem;
   char *cert_pem;
 

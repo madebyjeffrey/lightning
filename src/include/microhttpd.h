@@ -86,14 +86,6 @@
 #ifndef MHD_MICROHTTPD_H
 #define MHD_MICROHTTPD_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#if 0                           /* keep Emacsens' auto-indent happy */
-}
-#endif
-#endif
-
 /* While we generally would like users to use a configure-driven
    build process which detects which headers are present and
    hence works on any platform, we use "standard" includes here
@@ -390,7 +382,9 @@ typedef SOCKET MHD_socket;
  * @brief Handle for the daemon (listening on a socket for HTTP traffic).
  * @ingroup event
  */
-struct MHD_Daemon;
+namespace lightning {
+  struct daemon;
+}
 
 /**
  * @brief Handle for a connection / HTTP request.
@@ -416,7 +410,7 @@ struct MHD_PostProcessor;
 
 
 /**
- * @brief Flags for the `struct MHD_Daemon`.
+ * @brief Flags for the `lightning::daemon`.
  *
  * Note that if neither #MHD_USE_THREAD_PER_CONNECTION nor
  * #MHD_USE_SELECT_INTERNALLY is used, the client wants control over
@@ -1019,7 +1013,7 @@ union MHD_ConnectionInfo
    * Which daemon manages this connection (useful in case there are many
    * daemons running).
    */
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 };
 
 
@@ -1068,7 +1062,7 @@ enum MHD_ConnectionInfoType
   MHD_CONNECTION_INFO_GNUTLS_CLIENT_CERT,
 
   /**
-   * Get the `struct MHD_Daemon *` responsible for managing this connection.
+   * Get the `lightning::daemon *` responsible for managing this connection.
    * @ingroup request
    */
   MHD_CONNECTION_INFO_DAEMON,
@@ -1345,7 +1339,7 @@ typedef int
  * @return NULL on error, handle to daemon on success
  * @ingroup event
  */
-_MHD_EXTERN struct MHD_Daemon *
+_MHD_EXTERN lightning::daemon *
 MHD_start_daemon_va (unsigned int flags,
 		     uint16_t port,
 		     MHD_AcceptPolicyCallback apc, void *apc_cls,
@@ -1369,7 +1363,7 @@ MHD_start_daemon_va (unsigned int flags,
  * @return NULL on error, handle to daemon on success
  * @ingroup event
  */
-_MHD_EXTERN struct MHD_Daemon *
+_MHD_EXTERN lightning::daemon *
 MHD_start_daemon (unsigned int flags,
 		  uint16_t port,
 		  MHD_AcceptPolicyCallback apc, void *apc_cls,
@@ -1397,7 +1391,7 @@ MHD_start_daemon (unsigned int flags,
  * @ingroup specialized
  */
 _MHD_EXTERN MHD_socket
-MHD_quiesce_daemon (struct MHD_Daemon *daemon);
+MHD_quiesce_daemon (lightning::daemon *daemon);
 
 
 /**
@@ -1407,7 +1401,7 @@ MHD_quiesce_daemon (struct MHD_Daemon *daemon);
  * @ingroup event
  */
 _MHD_EXTERN void
-MHD_stop_daemon (struct MHD_Daemon *daemon);
+MHD_stop_daemon (lightning::daemon *daemon);
 
 
 /**
@@ -1440,7 +1434,7 @@ MHD_stop_daemon (struct MHD_Daemon *daemon);
  * @ingroup specialized
  */
 _MHD_EXTERN int
-MHD_add_connection (struct MHD_Daemon *daemon,
+MHD_add_connection (lightning::daemon *daemon,
 		    MHD_socket client_socket,
 		    const struct sockaddr *addr,
 		    socklen_t addrlen);
@@ -1466,7 +1460,7 @@ MHD_add_connection (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 _MHD_EXTERN int
-MHD_get_fdset (struct MHD_Daemon *daemon,
+MHD_get_fdset (lightning::daemon *daemon,
                fd_set *read_fd_set,
                fd_set *write_fd_set,
 	       fd_set *except_fd_set,
@@ -1495,7 +1489,7 @@ MHD_get_fdset (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 _MHD_EXTERN int
-MHD_get_fdset2 (struct MHD_Daemon *daemon,
+MHD_get_fdset2 (lightning::daemon *daemon,
                fd_set *read_fd_set,
                fd_set *write_fd_set,
                fd_set *except_fd_set,
@@ -1541,7 +1535,7 @@ MHD_get_fdset2 (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 _MHD_EXTERN int
-MHD_get_timeout (struct MHD_Daemon *daemon,
+MHD_get_timeout (lightning::daemon *daemon,
 		 MHD_UNSIGNED_LONG_LONG *timeout);
 
 
@@ -1565,7 +1559,7 @@ MHD_get_timeout (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 _MHD_EXTERN int
-MHD_run (struct MHD_Daemon *daemon);
+MHD_run (lightning::daemon *daemon);
 
 
 /**
@@ -1588,7 +1582,7 @@ MHD_run (struct MHD_Daemon *daemon);
  * @ingroup event
  */
 _MHD_EXTERN int
-MHD_run_from_select (struct MHD_Daemon *daemon,
+MHD_run_from_select (lightning::daemon *daemon,
 		     const fd_set *read_fd_set,
 		     const fd_set *write_fd_set,
 		     const fd_set *except_fd_set);
@@ -2349,7 +2343,7 @@ union MHD_DaemonInfo
  * @ingroup specialized
  */
 _MHD_EXTERN const union MHD_DaemonInfo *
-MHD_get_daemon_info (struct MHD_Daemon *daemon,
+MHD_get_daemon_info (lightning::daemon *daemon,
 		     enum MHD_DaemonInfoType info_type,
 		     ...);
 
@@ -2477,12 +2471,5 @@ enum MHD_FEATURE
 _MHD_EXTERN int
 MHD_is_feature_supported(enum MHD_FEATURE feature);
 
-
-#if 0                           /* keep Emacsens' auto-indent happy */
-{
-#endif
-#ifdef __cplusplus
-}
-#endif
 
 #endif

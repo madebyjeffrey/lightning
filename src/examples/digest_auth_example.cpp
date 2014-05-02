@@ -93,7 +93,7 @@ main (int argc, char *const *argv)
   char rnd[8];
   ssize_t len;
   size_t off;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   if (argc != 2)
     {

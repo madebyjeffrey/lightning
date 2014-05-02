@@ -1256,7 +1256,7 @@ closure argument for cb; the other arguments are the name of the source file, li
 @end table
 @end deftypefun
 
-@deftypefun {struct MHD_Daemon *} MHD_start_daemon (unsigned int flags, unsigned short port, MHD_AcceptPolicyCallback apc, void *apc_cls, MHD_AccessHandlerCallback dh, void *dh_cls, ...)
+@deftypefun {lightning::daemon *} MHD_start_daemon (unsigned int flags, unsigned short port, MHD_AcceptPolicyCallback apc, void *apc_cls, MHD_AccessHandlerCallback dh, void *dh_cls, ...)
 Start a webserver on the given port.
 
 @table @var
@@ -1290,7 +1290,7 @@ Return @code{NULL} on error, handle to daemon on success.
 @end deftypefun
 
 
-@deftypefun int MHD_quiesce_daemon (struct MHD_Daemon *daemon)
+@deftypefun int MHD_quiesce_daemon (lightning::daemon *daemon)
 @cindex quiesce
 Stop accepting connections from the listening socket.  Allows clients
 to continue processing, but stops accepting new connections.  Note
@@ -1311,12 +1311,12 @@ listen socket otherwise.
 @end deftypefun
 
 
-@deftypefun void MHD_stop_daemon (struct MHD_Daemon *daemon)
+@deftypefun void MHD_stop_daemon (lightning::daemon *daemon)
 Shutdown an HTTP daemon.
 @end deftypefun
 
 
-@deftypefun int MHD_run (struct MHD_Daemon *daemon)
+@deftypefun int MHD_run (lightning::daemon *daemon)
 Run webserver operations (without blocking unless in client callbacks).
 This method should be called by clients in combination with
 @code{MHD_get_fdset()} if the client-controlled @code{select}-method is used.
@@ -1337,7 +1337,7 @@ started with the right options for this call.
 @end deftypefun
 
 
-@deftypefun int MHD_run_from_select (struct MHD_Daemon *daemon, const fd_set *read_fd_set, const fd_set *write_fd_set, const fd_set *except_fd_set)
+@deftypefun int MHD_run_from_select (lightning::daemon *daemon, const fd_set *read_fd_set, const fd_set *write_fd_set, const fd_set *except_fd_set)
 Run webserver operations given sets of ready socket handles.
 @cindex select
 
@@ -1370,7 +1370,7 @@ errors.
 
 
 
-@deftypefun void MHD_add_connection (struct MHD_Daemon *daemon, int client_socket, const struct sockaddr *addr, socklen_t addrlen)
+@deftypefun void MHD_add_connection (lightning::daemon *daemon, int client_socket, const struct sockaddr *addr, socklen_t addrlen)
 Add another client connection to the set of connections
 managed by MHD.  This API is usually not needed (since
 MHD will accept inbound connections on the server socket).
@@ -1413,7 +1413,7 @@ to indicate further details about the error.
 @chapter Implementing external @code{select}
 
 
-@deftypefun int MHD_get_fdset (struct MHD_Daemon *daemon, fd_set * read_fd_set, fd_set * write_fd_set, fd_set * except_fd_set, int *max_fd)
+@deftypefun int MHD_get_fdset (lightning::daemon *daemon, fd_set * read_fd_set, fd_set * write_fd_set, fd_set * except_fd_set, int *max_fd)
 Obtain the @code{select()} sets for this daemon. The daemon's socket
 is added to @var{read_fd_set}. The list of currently existent
 connections is scanned and their file descriptors added to the correct
@@ -1430,7 +1430,7 @@ the right options for this call.
 @end deftypefun
 
 
-@deftypefun int MHD_get_timeout (struct MHD_Daemon *daemon, unsigned long long *timeout)
+@deftypefun int MHD_get_timeout (lightning::daemon *daemon, unsigned long long *timeout)
 @cindex timeout
 Obtain timeout value for select for this daemon (only needed if
 connection timeout is used).  The returned value is how long
@@ -2307,7 +2307,7 @@ of this function.
 @node microhttpd-info daemon
 @section Obtaining state information about an MHD daemon
 
-@deftypefun {const union MHD_DaemonInfo *} MHD_get_daemon_info (struct MHD_Daemon *daemon, enum MHD_DaemonInfoType infoType, ...)
+@deftypefun {const union MHD_DaemonInfo *} MHD_get_daemon_info (lightning::daemon *daemon, enum MHD_DaemonInfoType infoType, ...)
 Obtain information about the given daemon.  This function
 is currently not fully implemented.
 
@@ -2430,7 +2430,7 @@ MHD_CONNECTION_INFO_GNUTLS_SESSION to get the @code{gnutls_session_t}
 and then call @code{gnutls_certificate_get_peers()}.
 
 @item MHD_CONNECTION_INFO_DAEMON
-Returns information about @code{struct MHD_Daemon} which manages
+Returns information about @code{lightning::daemon} which manages
 this connection.
 
 @item MHD_CONNECTION_INFO_CONNECTION_FD

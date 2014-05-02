@@ -248,7 +248,7 @@ int
 main (int argc, char *const *argv)
 {
   unsigned int error_count = 0;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   gcry_control (GCRYCTL_ENABLE_QUICK_RANDOM, 0);
 #ifdef GCRYCTL_INITIALIZATION_FINISHED

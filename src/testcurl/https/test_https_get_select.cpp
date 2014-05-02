@@ -75,7 +75,7 @@ ahc_echo (void *cls,
 static int
 testExternalGet (int flags)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;

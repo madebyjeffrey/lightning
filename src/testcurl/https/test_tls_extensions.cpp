@@ -200,7 +200,7 @@ main (int argc, char *const *argv)
 {
   int i, errorCount = 0;
   FILE *test_fd;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   gnutls_session_t session;
   gnutls_datum_t key;
   gnutls_datum_t cert;

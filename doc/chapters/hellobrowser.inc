@@ -93,7 +93,7 @@ on @code{PORT} for connections. This is done in the main function.
 @verbatim
 int main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL, 
                              &answer_to_connection, NULL, MHD_OPTION_END);

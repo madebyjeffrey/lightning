@@ -91,7 +91,7 @@ MHD_state_to_string (enum MHD_CONNECTION_STATE state)
  * messages.
  */
 void
-MHD_DLOG (const struct MHD_Daemon *daemon, const char *format, ...)
+MHD_DLOG (const lightning::daemon *daemon, const char *format, ...)
 {
   va_list va;
 

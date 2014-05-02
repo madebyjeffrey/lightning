@@ -102,7 +102,7 @@ ahc_echo (void *cls,
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   time_t end;
   time_t t;
   struct timeval tv;

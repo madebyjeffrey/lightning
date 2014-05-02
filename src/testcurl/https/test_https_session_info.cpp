@@ -34,7 +34,7 @@ extern int curl_check_version (const char *req_version, ...);
 extern const char srv_key_pem[];
 extern const char srv_self_signed_cert_pem[];
 
-struct MHD_Daemon *d;
+lightning::daemon *d;
 
 /*
  * HTTP access handler call back

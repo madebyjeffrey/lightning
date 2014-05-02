@@ -180,7 +180,7 @@ ahc_echo (void *cls,
 static int
 testInternalGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -240,7 +240,7 @@ testInternalGet (int port, int poll_flag)
 static int
 testMultithreadedGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -299,7 +299,7 @@ testMultithreadedGet (int port, int poll_flag)
 static int
 testMultithreadedPoolGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -359,7 +359,7 @@ testMultithreadedPoolGet (int port, int poll_flag)
 static int
 testExternalGet (int port)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;

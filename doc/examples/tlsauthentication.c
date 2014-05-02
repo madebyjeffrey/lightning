@@ -233,7 +233,7 @@ answer_to_connection (void *cls, struct MHD_Connection *connection,
 int
 main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
   char *key_pem;
   char *cert_pem;
 

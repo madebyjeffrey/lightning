@@ -169,7 +169,7 @@ http_ahc (void *cls,
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *TLS_daemon;
+  lightning::daemon *TLS_daemon;
 
   if (argc == 2)
     {

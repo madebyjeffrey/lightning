@@ -129,7 +129,7 @@ testDigestAuth ()
   int fd;
   CURL *c;
   CURLcode errornum;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   struct CBC cbc;
   size_t len;
   size_t off = 0;

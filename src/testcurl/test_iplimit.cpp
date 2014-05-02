@@ -107,7 +107,7 @@ ahc_echo (void *cls,
 static int
 testMultithreadedGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   char buf[2048];
   int k;
 
@@ -115,7 +115,7 @@ testMultithreadedGet ()
   if (!oneone)
     return 0;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_PER_IP_CONNECTION_LIMIT, 2,
                         MHD_OPTION_END);
@@ -204,7 +204,7 @@ testMultithreadedGet ()
 static int
 testMultithreadedPoolGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   char buf[2048];
   int k;
 
@@ -212,7 +212,7 @@ testMultithreadedPoolGet ()
   if (!oneone)
     return 0;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_PER_IP_CONNECTION_LIMIT, 2,
                         MHD_OPTION_THREAD_POOL_SIZE, CPU_COUNT,

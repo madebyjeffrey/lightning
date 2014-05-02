@@ -161,7 +161,7 @@ ahc_echo (void *cls,
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   if (argc != 2)
     {

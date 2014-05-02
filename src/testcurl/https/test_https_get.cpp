@@ -45,7 +45,7 @@ test_cipher_option (FILE * test_fd,
 {
 
   int ret;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_SSL |
                         MHD_USE_DEBUG, 4233,
                         NULL, NULL, &http_ahc, NULL,
@@ -73,7 +73,7 @@ test_secure_get (FILE * test_fd,
 		 int proto_version)
 {
   int ret;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_SSL |
                         MHD_USE_DEBUG, 4233,

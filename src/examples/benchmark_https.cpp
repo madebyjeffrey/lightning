@@ -169,7 +169,7 @@ const char srv_signed_cert_pem[] = "-----BEGIN CERTIFICATE-----\n"
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   unsigned int i;
 
   if (argc != 2)

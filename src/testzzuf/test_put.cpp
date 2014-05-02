@@ -117,7 +117,7 @@ ahc_echo (void *cls,
 static int
 testInternalPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -168,7 +168,7 @@ testInternalPut ()
 static int
 testMultithreadedPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -220,7 +220,7 @@ testMultithreadedPut ()
 static int
 testExternalPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;

@@ -843,7 +843,7 @@ ignore_sigpipe ()
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   unsigned int port;
 
   if ( (argc != 2) ||

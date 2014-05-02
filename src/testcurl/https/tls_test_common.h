@@ -119,9 +119,9 @@ int
 test_https_transfer (void *cls, const char *cipher_suite, int proto_version);
 
 int
-setup_testcase (struct MHD_Daemon **d, int daemon_flags, va_list arg_list);
+setup_testcase (lightning::daemon **d, int daemon_flags, va_list arg_list);
 
-void teardown_testcase (struct MHD_Daemon *d);
+void teardown_testcase (lightning::daemon *d);
 
 int
 setup_session (gnutls_session_t * session,

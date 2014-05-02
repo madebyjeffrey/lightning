@@ -90,14 +90,14 @@ ahc_echo (void *cls,
 int
 main (int argc, char *const *argv)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   if (argc != 3)
     {
       printf ("%s PORT SECONDS-TO-RUN\n", argv[0]);
       return 1;
     }
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         atoi (argv[1]),
                         NULL, NULL, &ahc_echo, (void*)PAGE, MHD_OPTION_END);
   if (d == NULL)

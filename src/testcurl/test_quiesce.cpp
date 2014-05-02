@@ -116,7 +116,7 @@ request_completed (void *cls, struct MHD_Connection *connection,
 static void *
 ServeOneRequest(void *param)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   fd_set rs;
   fd_set ws;
   fd_set es;
@@ -127,13 +127,13 @@ ServeOneRequest(void *param)
 
   fd = (MHD_socket) (intptr_t) param;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         1082, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_LISTEN_SOCKET, fd,
                         MHD_OPTION_NOTIFY_COMPLETED, &request_completed, &done,
                         MHD_OPTION_END);
   if (d == NULL)
-    return (void*)"(MHD_Daemon*)MHD_start_daemon() failed";
+    return (void*)"MHD_start_daemon() failed";
 
   start = time (NULL);
   while ((time (NULL) - start < 5) && done == 0)
@@ -187,7 +187,7 @@ setupCURL (void *cbc)
 static int
 testGet (int type, int pool_count, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -200,12 +200,12 @@ testGet (int type, int pool_count, int poll_flag)
   cbc.size = 2048;
   cbc.pos = 0;
   if (pool_count > 0) {
-    d = (MHD_Daemon*)MHD_start_daemon (type | MHD_USE_DEBUG | MHD_USE_PIPE_FOR_SHUTDOWN | poll_flag,
+    d = MHD_start_daemon (type | MHD_USE_DEBUG | MHD_USE_PIPE_FOR_SHUTDOWN | poll_flag,
                           11080, NULL, NULL, &ahc_echo, (void*)"GET",
                           MHD_OPTION_THREAD_POOL_SIZE, pool_count, MHD_OPTION_END);
 
   } else {
-    d = (MHD_Daemon*)MHD_start_daemon (type | MHD_USE_DEBUG | MHD_USE_PIPE_FOR_SHUTDOWN | poll_flag,
+    d = MHD_start_daemon (type | MHD_USE_DEBUG | MHD_USE_PIPE_FOR_SHUTDOWN | poll_flag,
                           11080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   }
   if (d == NULL)
@@ -308,7 +308,7 @@ testGet (int type, int pool_count, int poll_flag)
 static int
 testExternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -329,7 +329,7 @@ testExternalGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         11080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 256;

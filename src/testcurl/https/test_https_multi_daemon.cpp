@@ -47,8 +47,8 @@ test_concurent_daemon_pair (void *cls,
 {
 
   int ret;
-  struct MHD_Daemon *d1;
-  struct MHD_Daemon *d2;
+  lightning::daemon *d1;
+  lightning::daemon *d2;
 
   d1 = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_SSL |
                          MHD_USE_DEBUG, DEAMON_TEST_PORT,

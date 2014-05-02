@@ -47,7 +47,7 @@ static int
 test_secure_get (void * cls, char *cipher_suite, int proto_version)
 {
   int ret;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_SSL |
                         MHD_USE_DEBUG, DEAMON_TEST_PORT,

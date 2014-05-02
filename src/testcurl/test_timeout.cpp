@@ -161,7 +161,7 @@ ahc_echo (void *cls,
 static int
 testWithoutTimeout ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -172,7 +172,7 @@ testWithoutTimeout ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1080,
                         NULL, NULL, &ahc_echo, &done_flag,
                         MHD_OPTION_CONNECTION_TIMEOUT, 2,
@@ -217,7 +217,7 @@ testWithoutTimeout ()
 static int
 testWithTimeout ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -227,7 +227,7 @@ testWithTimeout ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1080,
                         NULL, NULL, &ahc_echo, &done_flag,
                         MHD_OPTION_CONNECTION_TIMEOUT, 2,

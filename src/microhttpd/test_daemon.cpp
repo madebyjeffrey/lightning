@@ -38,7 +38,7 @@
 static int
 testStartError ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_DEBUG, 0, NULL, NULL, NULL, NULL);
   if (d != NULL)
@@ -73,7 +73,7 @@ ahc_nothing (void *cls,
 static int
 testStartStop ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1080,
@@ -88,7 +88,7 @@ testStartStop ()
 static int
 testExternalRun ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   fd_set rs;
   MHD_socket maxfd;
   int i;
@@ -123,7 +123,7 @@ testExternalRun ()
 static int
 testThread ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   d = MHD_start_daemon (MHD_USE_DEBUG | MHD_USE_SELECT_INTERNALLY,
                         1082,
                         &apc_all, NULL, &ahc_nothing, NULL, MHD_OPTION_END);
@@ -139,7 +139,7 @@ testThread ()
 static int
 testMultithread ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   d = MHD_start_daemon (MHD_USE_DEBUG | MHD_USE_THREAD_PER_CONNECTION,
                         1083,
                         &apc_all, NULL, &ahc_nothing, NULL, MHD_OPTION_END);

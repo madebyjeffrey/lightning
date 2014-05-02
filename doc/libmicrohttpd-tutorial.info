@@ -194,7 +194,7 @@ is done in the main function.
 
 int main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                              &answer_to_connection, NULL, MHD_OPTION_END);
@@ -1500,7 +1500,7 @@ files into memory,
 int
 main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
   char *key_pem;
   char *cert_pem;
 
@@ -2506,7 +2506,7 @@ C.1 hellobrowser.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL, MHD_OPTION_END);
@@ -2568,7 +2568,7 @@ C.2 logging.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL, MHD_OPTION_END);
@@ -2660,7 +2660,7 @@ C.3 responseheaders.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL, MHD_OPTION_END);
@@ -2751,7 +2751,7 @@ C.4 basicauthentication.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL, MHD_OPTION_END);
@@ -2948,7 +2948,7 @@ C.5 simplepost.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL,
@@ -3200,7 +3200,7 @@ C.6 largepost.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
 
        daemon = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY, PORT, NULL, NULL,
                                   &answer_to_connection, NULL,
@@ -3937,7 +3937,7 @@ C.7 sessions.c
      int
      main (int argc, char *const *argv)
      {
-       struct MHD_Daemon *d;
+       lightning::daemon *d;
        struct timeval tv;
        struct timeval *tvp;
        fd_set rs;
@@ -4234,7 +4234,7 @@ C.8 tlsauthentication.c
      int
      main ()
      {
-       struct MHD_Daemon *daemon;
+       lightning::daemon *daemon;
        char *key_pem;
        char *cert_pem;
 

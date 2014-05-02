@@ -125,7 +125,7 @@ ahc_echo (void *cls,
 static int
 testInternalGet (int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -134,7 +134,7 @@ testInternalGet (int poll_flag)
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG  | poll_flag,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG  | poll_flag,
                         11080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 1;

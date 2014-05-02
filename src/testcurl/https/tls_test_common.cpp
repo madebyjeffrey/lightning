@@ -364,7 +364,7 @@ cleanup:
  * @return
  */
 int
-setup_testcase (struct MHD_Daemon **d, int daemon_flags, va_list arg_list)
+setup_testcase (lightning::daemon **d, int daemon_flags, va_list arg_list)
 {
   *d = MHD_start_daemon_va (daemon_flags, DEAMON_TEST_PORT,
                             NULL, NULL, &http_ahc, NULL, arg_list);
@@ -379,7 +379,7 @@ setup_testcase (struct MHD_Daemon **d, int daemon_flags, va_list arg_list)
 }
 
 void
-teardown_testcase (struct MHD_Daemon *d)
+teardown_testcase (lightning::daemon *d)
 {
   MHD_stop_daemon (d);
 }
@@ -455,7 +455,7 @@ test_wrap (const char *test_name, int
 {
   int ret;
   va_list arg_list;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   va_start (arg_list, proto_version);
   if (setup_testcase (&d, daemon_flags, arg_list) != 0)

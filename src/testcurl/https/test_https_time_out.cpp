@@ -101,7 +101,7 @@ int
 main (int argc, char *const *argv)
 {
   int errorCount = 0;;
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   gnutls_session_t session;
   gnutls_datum_t key;
   gnutls_datum_t cert;

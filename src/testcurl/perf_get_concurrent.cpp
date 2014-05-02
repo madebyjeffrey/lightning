@@ -232,7 +232,7 @@ join_gets (pid_t pid)
 static int
 testInternalGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG  | poll_flag,
                         port, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
@@ -249,7 +249,7 @@ testInternalGet (int port, int poll_flag)
 static int
 testMultithreadedGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG  | poll_flag,
                         port, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
@@ -265,7 +265,7 @@ testMultithreadedGet (int port, int poll_flag)
 static int
 testMultithreadedPoolGet (int port, int poll_flag)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
 
   d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG | poll_flag,
                         port, NULL, NULL, &ahc_echo, (void*)"GET",
@@ -282,7 +282,7 @@ testMultithreadedPoolGet (int port, int poll_flag)
 static int
 testExternalGet (int port)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   pid_t pid;
   fd_set rs;
   fd_set ws;

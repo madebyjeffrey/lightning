@@ -89,9 +89,9 @@ write_data (void *ptr, size_t size, size_t nmemb, void *stream)
 int
 main ()
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
-  daemon = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  daemon = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                              PORT,
                              NULL,
                              NULL, connection_handler, NULL, MHD_OPTION_END);

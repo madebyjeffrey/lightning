@@ -141,7 +141,7 @@ ahc_echo (void *cls,
 static int
 testInternalPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   struct CBC cbc;
   unsigned int pos = 0;
@@ -152,7 +152,7 @@ testInternalPut ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1080,
                         NULL, NULL, &ahc_echo, &done_flag,
 			MHD_OPTION_CONNECTION_MEMORY_LIMIT, (size_t) (1024*1024),
@@ -199,7 +199,7 @@ testInternalPut ()
 static int
 testMultithreadedPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   struct CBC cbc;
   unsigned int pos = 0;
@@ -210,7 +210,7 @@ testMultithreadedPut ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         1081,
                         NULL, NULL, &ahc_echo, &done_flag,
 			MHD_OPTION_CONNECTION_MEMORY_LIMIT, (size_t) (1024*1024),
@@ -260,7 +260,7 @@ testMultithreadedPut ()
 static int
 testMultithreadedPoolPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   struct CBC cbc;
   unsigned int pos = 0;
@@ -271,7 +271,7 @@ testMultithreadedPoolPut ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081,
                         NULL, NULL, &ahc_echo, &done_flag,
                         MHD_OPTION_THREAD_POOL_SIZE, CPU_COUNT,
@@ -322,7 +322,7 @@ testMultithreadedPoolPut ()
 static int
 testExternalPut ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   struct CBC cbc;
   CURLM *multi;
@@ -343,7 +343,7 @@ testExternalPut ()
   cbc.size = 2048;
   cbc.pos = 0;
   multi = NULL;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         1082,
                         NULL, NULL, &ahc_echo, &done_flag,
                         MHD_OPTION_CONNECTION_MEMORY_LIMIT,

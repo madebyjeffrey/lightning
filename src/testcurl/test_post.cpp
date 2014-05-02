@@ -161,7 +161,7 @@ ahc_echo (void *cls,
 static int
 testInternalPost ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -170,7 +170,7 @@ testInternalPost ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1080, NULL, NULL, &ahc_echo, NULL,
 			MHD_OPTION_NOTIFY_COMPLETED, &completed_cb, NULL,
 			MHD_OPTION_END);
@@ -215,7 +215,7 @@ testInternalPost ()
 static int
 testMultithreadedPost ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -224,7 +224,7 @@ testMultithreadedPost ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, NULL,
 			MHD_OPTION_NOTIFY_COMPLETED, &completed_cb, NULL,
 			MHD_OPTION_END);
@@ -269,7 +269,7 @@ testMultithreadedPost ()
 static int
 testMultithreadedPoolPost ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -278,7 +278,7 @@ testMultithreadedPoolPost ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, NULL,
                         MHD_OPTION_THREAD_POOL_SIZE, CPU_COUNT,
 			MHD_OPTION_NOTIFY_COMPLETED, &completed_cb, NULL,
@@ -324,7 +324,7 @@ testMultithreadedPoolPost ()
 static int
 testExternalPost ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -343,7 +343,7 @@ testExternalPost ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         1082, NULL, NULL, &ahc_echo, NULL,
 			MHD_OPTION_NOTIFY_COMPLETED, &completed_cb, NULL,
 			MHD_OPTION_END);
@@ -531,7 +531,7 @@ slowReadBuffer(void *p, size_t size, size_t nmemb, void *opaque)
 static int
 testMultithreadedPostCancelPart(int flags)
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -550,7 +550,7 @@ testMultithreadedPostCancelPart(int flags)
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_cancel, NULL,
 			MHD_OPTION_END);
   if (d == NULL)

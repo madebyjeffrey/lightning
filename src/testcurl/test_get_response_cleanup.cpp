@@ -146,11 +146,11 @@ ahc_echo (void *cls,
 static int
 testInternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   pid_t curl;
 
   ok = 1;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         11080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 1;
@@ -168,10 +168,10 @@ testInternalGet ()
 static int
 testMultithreadedGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   pid_t curl;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET",
 			MHD_OPTION_CONNECTION_TIMEOUT, (unsigned int) 2,
 			MHD_OPTION_END);
@@ -204,10 +204,10 @@ testMultithreadedGet ()
 static int
 testMultithreadedPoolGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   pid_t curl;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_THREAD_POOL_SIZE, CPU_COUNT, MHD_OPTION_END);
   if (d == NULL)
@@ -227,7 +227,7 @@ testMultithreadedPoolGet ()
 static int
 testExternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   fd_set rs;
   fd_set ws;
   fd_set es;
@@ -236,7 +236,7 @@ testExternalGet ()
   struct timeval tv;
   pid_t curl;
 
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         1082, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 256;

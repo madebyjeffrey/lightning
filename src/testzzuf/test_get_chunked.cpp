@@ -121,7 +121,7 @@ ahc_echo (void *cls,
 static int
 testInternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -162,7 +162,7 @@ testInternalGet ()
 static int
 testMultithreadedGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -204,7 +204,7 @@ testMultithreadedGet ()
 static int
 testExternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;

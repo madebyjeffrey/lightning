@@ -108,7 +108,7 @@ ahc_echo (void *cls,
 static int
 testExternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -127,7 +127,7 @@ testExternalGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         21080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 256;

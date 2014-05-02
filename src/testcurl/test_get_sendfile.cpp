@@ -116,7 +116,7 @@ ahc_echo (void *cls,
 static int
 testInternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -125,7 +125,7 @@ testInternalGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         11080, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 1;
@@ -165,7 +165,7 @@ testInternalGet ()
 static int
 testMultithreadedGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -174,7 +174,7 @@ testMultithreadedGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_THREAD_PER_CONNECTION | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 16;
@@ -214,7 +214,7 @@ testMultithreadedGet ()
 static int
 testMultithreadedPoolGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -223,7 +223,7 @@ testMultithreadedPoolGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1081, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_THREAD_POOL_SIZE, CPU_COUNT, MHD_OPTION_END);
   if (d == NULL)
@@ -264,7 +264,7 @@ testMultithreadedPoolGet ()
 static int
 testExternalGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -283,7 +283,7 @@ testExternalGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_DEBUG,
                         1082, NULL, NULL, &ahc_echo, (void*)"GET", MHD_OPTION_END);
   if (d == NULL)
     return 256;
@@ -386,7 +386,7 @@ testExternalGet ()
 static int
 testUnknownPortGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   const union MHD_DaemonInfo *di;
   CURL *c;
   char buf[2048];
@@ -403,7 +403,7 @@ testUnknownPortGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG,
                         1, NULL, NULL, &ahc_echo, (void*)"GET",
                         MHD_OPTION_SOCK_ADDR, &addr,
                         MHD_OPTION_END);

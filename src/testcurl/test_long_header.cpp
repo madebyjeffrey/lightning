@@ -91,7 +91,7 @@ ahc_echo (void *cls,
 static int
 testLongUrlGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -101,7 +101,7 @@ testLongUrlGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY /* | MHD_USE_DEBUG */ ,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY /* | MHD_USE_DEBUG */ ,
                         1080,
                         &apc_all,
                         NULL,
@@ -161,7 +161,7 @@ testLongUrlGet ()
 static int
 testLongHeaderGet ()
 {
-  struct MHD_Daemon *d;
+  lightning::daemon *d;
   CURL *c;
   char buf[2048];
   struct CBC cbc;
@@ -172,7 +172,7 @@ testLongHeaderGet ()
   cbc.buf = buf;
   cbc.size = 2048;
   cbc.pos = 0;
-  d = (MHD_Daemon*)MHD_start_daemon (MHD_USE_SELECT_INTERNALLY /* | MHD_USE_DEBUG */ ,
+  d = MHD_start_daemon (MHD_USE_SELECT_INTERNALLY /* | MHD_USE_DEBUG */ ,
                         1080,
                         &apc_all,
                         NULL,

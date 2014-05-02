@@ -1102,7 +1102,7 @@ File: libmicrohttpd.info,  Node: microhttpd-init,  Next: microhttpd-inspect,  Pr
           the source file, line number and a string describing the
           nature of the fatal error (which can be `NULL')
 
- -- Function: struct MHD_Daemon * MHD_start_daemon (unsigned int flags,
+ -- Function: lightning::daemon * MHD_start_daemon (unsigned int flags,
           unsigned short port, MHD_AcceptPolicyCallback apc, void
           *apc_cls, MHD_AccessHandlerCallback dh, void *dh_cls, ...)
      Start a webserver on the given port.
@@ -1134,7 +1134,7 @@ File: libmicrohttpd.info,  Node: microhttpd-init,  Next: microhttpd-inspect,  Pr
 
      Return `NULL' on error, handle to daemon on success.
 
- -- Function: int MHD_quiesce_daemon (struct MHD_Daemon *daemon)
+ -- Function: int MHD_quiesce_daemon (lightning::daemon *daemon)
      Stop accepting connections from the listening socket.  Allows
      clients to continue processing, but stops accepting new
      connections.  Note that the caller is responsible for closing the
@@ -1152,10 +1152,10 @@ File: libmicrohttpd.info,  Node: microhttpd-init,  Next: microhttpd-inspect,  Pr
      listen socket otherwise.
 
 
- -- Function: void MHD_stop_daemon (struct MHD_Daemon *daemon)
+ -- Function: void MHD_stop_daemon (lightning::daemon *daemon)
      Shutdown an HTTP daemon.
 
- -- Function: int MHD_run (struct MHD_Daemon *daemon)
+ -- Function: int MHD_run (lightning::daemon *daemon)
      Run webserver operations (without blocking unless in client
      callbacks).  This method should be called by clients in
      combination with `MHD_get_fdset()' if the client-controlled
@@ -1171,7 +1171,7 @@ File: libmicrohttpd.info,  Node: microhttpd-init,  Next: microhttpd-inspect,  Pr
      Return `MHD_YES' on success, `MHD_NO' if this daemon was not
      started with the right options for this call.
 
- -- Function: int MHD_run_from_select (struct MHD_Daemon *daemon, const
+ -- Function: int MHD_run_from_select (lightning::daemon *daemon, const
           fd_set *read_fd_set, const fd_set *write_fd_set, const fd_set
           *except_fd_set)
      Run webserver operations given sets of ready socket handles.  
@@ -1204,7 +1204,7 @@ File: libmicrohttpd.info,  Node: microhttpd-init,  Next: microhttpd-inspect,  Pr
      Return `MHD_YES' on success, `MHD_NO' on serious internal errors.
 
 
- -- Function: void MHD_add_connection (struct MHD_Daemon *daemon, int
+ -- Function: void MHD_add_connection (lightning::daemon *daemon, int
           client_socket, const struct sockaddr *addr, socklen_t addrlen)
      Add another client connection to the set of connections managed by
      MHD.  This API is usually not needed (since MHD will accept
@@ -1246,7 +1246,7 @@ File: libmicrohttpd.info,  Node: microhttpd-inspect,  Next: microhttpd-requests,
 6 Implementing external `select'
 ********************************
 
- -- Function: int MHD_get_fdset (struct MHD_Daemon *daemon, fd_set *
+ -- Function: int MHD_get_fdset (lightning::daemon *daemon, fd_set *
           read_fd_set, fd_set * write_fd_set, fd_set * except_fd_set,
           int *max_fd)
      Obtain the `select()' sets for this daemon. The daemon's socket is
@@ -1262,7 +1262,7 @@ File: libmicrohttpd.info,  Node: microhttpd-inspect,  Next: microhttpd-requests,
      invalid (example: `NULL' pointers); this daemon was not started
      with the right options for this call.
 
- -- Function: int MHD_get_timeout (struct MHD_Daemon *daemon, unsigned
+ -- Function: int MHD_get_timeout (lightning::daemon *daemon, unsigned
           long long *timeout)
      Obtain timeout value for select for this daemon (only needed if
      connection timeout is used).  The returned value is how long
@@ -2185,7 +2185,7 @@ File: libmicrohttpd.info,  Node: microhttpd-info conn,  Next: microhttpd-option 
           `gnutls_certificate_get_peers()'.
 
     `MHD_CONNECTION_INFO_DAEMON'
-          Returns information about `struct MHD_Daemon' which manages
+          Returns information about `lightning::daemon' which manages
           this connection.
 
     `MHD_CONNECTION_INFO_CONNECTION_FD'

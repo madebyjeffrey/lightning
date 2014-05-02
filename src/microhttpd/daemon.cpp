@@ -164,8 +164,8 @@ static int mhd_winsock_inited_ = 0;
  * @param daemon handle to a daemon
  * @return master daemon handle
  */
-static struct MHD_Daemon*
-MHD_get_master (struct MHD_Daemon *daemon)
+static lightning::daemon*
+MHD_get_master (lightning::daemon *daemon)
 {
   while (NULL != daemon->master)
     daemon = daemon->master;
@@ -213,7 +213,7 @@ struct MHD_IPCount
  * @param daemon handle to daemon where lock is
  */
 static void
-MHD_ip_count_lock (struct MHD_Daemon *daemon)
+MHD_ip_count_lock (lightning::daemon *daemon)
 {
   if (MHD_YES != MHD_mutex_lock_(&daemon->per_ip_connection_mutex))
     {
@@ -228,7 +228,7 @@ MHD_ip_count_lock (struct MHD_Daemon *daemon)
  * @param daemon handle to daemon where lock is
  */
 static void
-MHD_ip_count_unlock (struct MHD_Daemon *daemon)
+MHD_ip_count_unlock (lightning::daemon *daemon)
 {
   if (MHD_YES != MHD_mutex_unlock_(&daemon->per_ip_connection_mutex))
     {
@@ -303,7 +303,7 @@ MHD_ip_addr_to_key (const struct sockaddr *addr,
  *   Also returns #MHD_NO if fails to allocate memory.
  */
 static int
-MHD_ip_limit_add (struct MHD_Daemon *daemon,
+MHD_ip_limit_add (lightning::daemon *daemon,
 		  const struct sockaddr *addr,
 		  socklen_t addrlen)
 {
@@ -367,7 +367,7 @@ MHD_ip_limit_add (struct MHD_Daemon *daemon,
  * @param addrlen number of bytes in @a addr
  */
 static void
-MHD_ip_limit_del (struct MHD_Daemon *daemon,
+MHD_ip_limit_del (lightning::daemon *daemon,
 		  const struct sockaddr *addr,
 		  socklen_t addrlen)
 {
@@ -494,7 +494,7 @@ send_tls_adapter (struct MHD_Connection *connection,
  * @return 0 on success
  */
 static int
-MHD_init_daemon_certificate (struct MHD_Daemon *daemon)
+MHD_init_daemon_certificate (lightning::daemon *daemon)
 {
   gnutls_datum_t key;
   gnutls_datum_t cert;
@@ -557,7 +557,7 @@ MHD_init_daemon_certificate (struct MHD_Daemon *daemon)
  * @return 0 on success
  */
 static int
-MHD_TLS_init (struct MHD_Daemon *daemon)
+MHD_TLS_init (lightning::daemon *daemon)
 {
   switch (daemon->cred_type)
     {
@@ -638,7 +638,7 @@ add_to_fd_set (MHD_socket fd,
  * @ingroup event
  */
 int
-MHD_get_fdset (struct MHD_Daemon *daemon,
+MHD_get_fdset (lightning::daemon *daemon,
                fd_set *read_fd_set,
                fd_set *write_fd_set,
 	       fd_set *except_fd_set,
@@ -671,7 +671,7 @@ MHD_get_fdset (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 int
-MHD_get_fdset2 (struct MHD_Daemon *daemon,
+MHD_get_fdset2 (lightning::daemon *daemon,
                fd_set *read_fd_set,
                fd_set *write_fd_set,
                fd_set *except_fd_set,
@@ -1054,7 +1054,7 @@ typedef MHD_THRD_RTRN_TYPE_ (MHD_THRD_CALL_SPEC_ *ThreadStartRoutine)(void *cls)
  */
 static int
 create_thread (MHD_thread_handle_ *thread,
-	       const struct MHD_Daemon *daemon,
+	       const lightning::daemon *daemon,
 	       ThreadStartRoutine start_routine,
 	       void *arg)
 {
@@ -1128,7 +1128,7 @@ create_thread (MHD_thread_handle_ *thread,
  *        set to indicate further details about the error.
  */
 static int
-internal_add_connection (struct MHD_Daemon *daemon,
+internal_add_connection (lightning::daemon *daemon,
 			 MHD_socket client_socket,
 			 const struct sockaddr *addr,
 			 socklen_t addrlen,
@@ -1506,7 +1506,7 @@ internal_add_connection (struct MHD_Daemon *daemon,
 void
 MHD_suspend_connection (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = connection->daemon;
   if (MHD_USE_SUSPEND_RESUME != (daemon->options & MHD_USE_SUSPEND_RESUME))
@@ -1567,7 +1567,7 @@ MHD_suspend_connection (struct MHD_Connection *connection)
 void
 MHD_resume_connection (struct MHD_Connection *connection)
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
 
   daemon = connection->daemon;
   if (MHD_USE_SUSPEND_RESUME != (daemon->options & MHD_USE_SUSPEND_RESUME))
@@ -1598,7 +1598,7 @@ MHD_resume_connection (struct MHD_Connection *connection)
  * @param daemon daemon context
  */
 static void
-resume_suspended_connections (struct MHD_Daemon *daemon)
+resume_suspended_connections (lightning::daemon *daemon)
 {
   struct MHD_Connection *pos;
   struct MHD_Connection *next = NULL;
@@ -1673,7 +1673,7 @@ resume_suspended_connections (struct MHD_Daemon *daemon)
  * @param sock socket to manipulate
  */
 static void
-make_nonblocking_noninheritable (struct MHD_Daemon *daemon,
+make_nonblocking_noninheritable (lightning::daemon *daemon,
 				 MHD_socket sock)
 {
 #ifdef WINDOWS
@@ -1752,7 +1752,7 @@ make_nonblocking_noninheritable (struct MHD_Daemon *daemon,
  * @ingroup specialized
  */
 int
-MHD_add_connection (struct MHD_Daemon *daemon,
+MHD_add_connection (lightning::daemon *daemon,
 		    MHD_socket client_socket,
 		    const struct sockaddr *addr,
 		    socklen_t addrlen)
@@ -1779,7 +1779,7 @@ MHD_add_connection (struct MHD_Daemon *daemon,
  *         'accept' system call.
  */
 static int
-MHD_accept_connection (struct MHD_Daemon *daemon)
+MHD_accept_connection (lightning::daemon *daemon)
 {
 #if HAVE_INET6
   struct sockaddr_in6 addrstorage;
@@ -1851,7 +1851,7 @@ MHD_accept_connection (struct MHD_Daemon *daemon)
  * @param daemon daemon to clean up
  */
 static void
-MHD_cleanup_connections (struct MHD_Daemon *daemon)
+MHD_cleanup_connections (lightning::daemon *daemon)
 {
   struct MHD_Connection *pos;
 
@@ -1944,7 +1944,7 @@ MHD_cleanup_connections (struct MHD_Daemon *daemon)
  * @ingroup event
  */
 int
-MHD_get_timeout (struct MHD_Daemon *daemon,
+MHD_get_timeout (lightning::daemon *daemon,
 		 MHD_UNSIGNED_LONG_LONG *timeout)
 {
   time_t earliest_deadline;
@@ -2034,7 +2034,7 @@ MHD_get_timeout (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 int
-MHD_run_from_select (struct MHD_Daemon *daemon,
+MHD_run_from_select (lightning::daemon *daemon,
 		     const fd_set *read_fd_set,
 		     const fd_set *write_fd_set,
 		     const fd_set *except_fd_set)
@@ -2119,7 +2119,7 @@ MHD_run_from_select (struct MHD_Daemon *daemon,
  * @return #MHD_NO on serious errors, #MHD_YES on success
  */
 static int
-MHD_select (struct MHD_Daemon *daemon,
+MHD_select (lightning::daemon *daemon,
 	    int may_block)
 {
   int num_ready;
@@ -2208,7 +2208,7 @@ MHD_select (struct MHD_Daemon *daemon,
  * @return #MHD_NO on serious errors, #MHD_YES on success
  */
 static int
-MHD_poll_all (struct MHD_Daemon *daemon,
+MHD_poll_all (lightning::daemon *daemon,
 	      int may_block)
 {
   unsigned int num_connections;
@@ -2358,7 +2358,7 @@ MHD_poll_all (struct MHD_Daemon *daemon,
  * @return #MHD_NO on serious errors, #MHD_YES on success
  */
 static int
-MHD_poll_listen_socket (struct MHD_Daemon *daemon,
+MHD_poll_listen_socket (lightning::daemon *daemon,
 			int may_block)
 {
   struct pollfd p[2];
@@ -2418,7 +2418,7 @@ MHD_poll_listen_socket (struct MHD_Daemon *daemon,
  * @return #MHD_NO on serious errors, #MHD_YES on success
  */
 static int
-MHD_poll (struct MHD_Daemon *daemon,
+MHD_poll (lightning::daemon *daemon,
 	  int may_block)
 {
 #ifdef HAVE_POLL_H
@@ -2456,7 +2456,7 @@ MHD_poll (struct MHD_Daemon *daemon,
  * @return #MHD_NO on serious errors, #MHD_YES on success
  */
 static int
-MHD_epoll (struct MHD_Daemon *daemon,
+MHD_epoll (lightning::daemon *daemon,
 	   int may_block)
 {
   struct MHD_Connection *pos;
@@ -2669,7 +2669,7 @@ MHD_epoll (struct MHD_Daemon *daemon,
  * @ingroup event
  */
 int
-MHD_run (struct MHD_Daemon *daemon)
+MHD_run (lightning::daemon *daemon)
 {
   if ( (MHD_YES == daemon->shutdown) ||
        (0 != (daemon->options & MHD_USE_THREAD_PER_CONNECTION)) ||
@@ -2706,7 +2706,7 @@ MHD_run (struct MHD_Daemon *daemon)
 static MHD_THRD_RTRN_TYPE_ MHD_THRD_CALL_SPEC_
 MHD_select_thread (void *cls)
 {
-  struct MHD_Daemon *daemon = reinterpret_cast<struct MHD_Daemon *>(cls);
+  lightning::daemon *daemon = reinterpret_cast<lightning::daemon *>(cls);
 
   while (MHD_YES != daemon->shutdown)
     {
@@ -2740,14 +2740,14 @@ MHD_select_thread (void *cls)
  * @return NULL on error, handle to daemon on success
  * @ingroup event
  */
-struct MHD_Daemon *
+lightning::daemon *
 MHD_start_daemon (unsigned int flags,
                   uint16_t port,
                   MHD_AcceptPolicyCallback apc,
                   void *apc_cls,
                   MHD_AccessHandlerCallback dh, void *dh_cls, ...)
 {
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
   va_list ap;
 
   va_start (ap, dh_cls);
@@ -2777,7 +2777,7 @@ MHD_start_daemon (unsigned int flags,
  * @ingroup specialized
  */
 MHD_socket
-MHD_quiesce_daemon (struct MHD_Daemon *daemon)
+MHD_quiesce_daemon (lightning::daemon *daemon)
 {
   unsigned int i;
   MHD_socket ret;
@@ -2852,7 +2852,7 @@ typedef void (*VfprintfFunctionPointerType)(void *cls,
  * @return #MHD_YES on success, #MHD_NO on error
  */
 static int
-parse_options_va (struct MHD_Daemon *daemon,
+parse_options_va (lightning::daemon *daemon,
 		  const struct sockaddr **servaddr,
 		  va_list ap);
 
@@ -2866,7 +2866,7 @@ parse_options_va (struct MHD_Daemon *daemon,
  * @return #MHD_YES on success, #MHD_NO on error
  */
 static int
-parse_options (struct MHD_Daemon *daemon,
+parse_options (lightning::daemon *daemon,
 	       const struct sockaddr **servaddr,
 	       ...)
 {
@@ -2889,7 +2889,7 @@ parse_options (struct MHD_Daemon *daemon,
  * @return #MHD_YES on success, #MHD_NO on error
  */
 static int
-parse_options_va (struct MHD_Daemon *daemon,
+parse_options_va (lightning::daemon *daemon,
 		  const struct sockaddr **servaddr,
 		  va_list ap)
 {
@@ -2935,8 +2935,8 @@ parse_options_va (struct MHD_Daemon *daemon,
           break;
         case MHD_OPTION_THREAD_POOL_SIZE:
           daemon->worker_pool_size = va_arg (ap, unsigned int);
-	  // if (daemon->worker_pool_size >= (SIZE_MAX / sizeof (struct MHD_Daemon)))
-    if (daemon->worker_pool_size >= (std::numeric_limits<size_t>::max() / sizeof (struct MHD_Daemon)))
+	  // if (daemon->worker_pool_size >= (SIZE_MAX / sizeof (lightning::daemon)))
+    if (daemon->worker_pool_size >= (std::numeric_limits<size_t>::max() / sizeof (lightning::daemon)))
 	    {
 #if HAVE_MESSAGES
 	      MHD_DLOG (daemon,
@@ -3210,7 +3210,7 @@ parse_options_va (struct MHD_Daemon *daemon,
  * @param protocol desired protocol, 0 for default
  */
 static MHD_socket
-create_socket (struct MHD_Daemon *daemon,
+create_socket (lightning::daemon *daemon,
 	       int domain, int type, int protocol)
 {
   int ctype = type | SOCK_CLOEXEC;
@@ -3241,7 +3241,7 @@ create_socket (struct MHD_Daemon *daemon,
  * @return #MHD_YES on success, #MHD_NO on failure
  */
 static int
-setup_epoll_to_listen (struct MHD_Daemon *daemon)
+setup_epoll_to_listen (lightning::daemon *daemon)
 {
   struct epoll_event event;
 
@@ -3319,7 +3319,7 @@ setup_epoll_to_listen (struct MHD_Daemon *daemon)
  * @return NULL on error, handle to daemon on success
  * @ingroup event
  */
-struct MHD_Daemon *
+lightning::daemon *
 MHD_start_daemon_va (unsigned int flags,
                      uint16_t port,
                      MHD_AcceptPolicyCallback apc,
@@ -3328,7 +3328,7 @@ MHD_start_daemon_va (unsigned int flags,
 		     va_list ap)
 {
   const int on = 1;
-  struct MHD_Daemon *daemon;
+  lightning::daemon *daemon;
   MHD_socket socket_fd;
   struct sockaddr_in servaddr4;
 #if HAVE_INET6
@@ -3358,9 +3358,9 @@ MHD_start_daemon_va (unsigned int flags,
 #endif
   if (NULL == dh)
     return NULL;
-  if (NULL == (daemon = reinterpret_cast<struct MHD_Daemon *>(malloc (sizeof (struct MHD_Daemon)))))
+  if (NULL == (daemon = reinterpret_cast<lightning::daemon *>(malloc (sizeof (lightning::daemon)))))
     return NULL;
-  memset (daemon, 0, sizeof (struct MHD_Daemon));
+  memset (daemon, 0, sizeof (lightning::daemon));
 #if EPOLL_SUPPORT
   daemon->epoll_fd = -1;
 #endif
@@ -3831,7 +3831,7 @@ MHD_start_daemon_va (unsigned int flags,
 #endif // MINGW
 
       /* Allocate memory for pooled objects */
-      daemon->worker_pool = reinterpret_cast<struct MHD_Daemon *>(malloc (sizeof (struct MHD_Daemon)
+      daemon->worker_pool = reinterpret_cast<lightning::daemon *>(malloc (sizeof (lightning::daemon)
                                     * daemon->worker_pool_size));
       if (NULL == daemon->worker_pool)
         goto thread_failed;
@@ -3840,9 +3840,9 @@ MHD_start_daemon_va (unsigned int flags,
       for (i = 0; i < daemon->worker_pool_size; ++i)
         {
           /* Create copy of the Daemon object for each worker */
-          struct MHD_Daemon *d = &daemon->worker_pool[i];
+          lightning::daemon *d = &daemon->worker_pool[i];
 
-          memcpy (d, daemon, sizeof (struct MHD_Daemon));
+          memcpy (d, daemon, sizeof (lightning::daemon));
           /* Adjust pooling params for worker daemons; note that memcpy()
              has already copied MHD_USE_SELECT_INTERNALLY thread model into
              the worker threads. */
@@ -3970,7 +3970,7 @@ thread_failed:
 static void
 close_connection (struct MHD_Connection *pos)
 {
-  struct MHD_Daemon *daemon = pos->daemon;
+  lightning::daemon *daemon = pos->daemon;
 
   MHD_connection_close (pos,
 			MHD_REQUEST_TERMINATED_DAEMON_SHUTDOWN);
@@ -4000,7 +4000,7 @@ close_connection (struct MHD_Connection *pos)
  * @param daemon daemon to close down
  */
 static void
-close_all_connections (struct MHD_Daemon *daemon)
+close_all_connections (lightning::daemon *daemon)
 {
   struct MHD_Connection *pos;
 
@@ -4041,7 +4041,7 @@ close_all_connections (struct MHD_Daemon *daemon)
  * @param daemon daemon of which the epoll() instance must be signalled
  */
 static void
-epoll_shutdown (struct MHD_Daemon *daemon)
+epoll_shutdown (lightning::daemon *daemon)
 {
   struct epoll_event event;
 
@@ -4068,7 +4068,7 @@ epoll_shutdown (struct MHD_Daemon *daemon)
  * @ingroup event
  */
 void
-MHD_stop_daemon (struct MHD_Daemon *daemon)
+MHD_stop_daemon (lightning::daemon *daemon)
 {
   MHD_socket fd;
   unsigned int i;
@@ -4223,7 +4223,7 @@ MHD_stop_daemon (struct MHD_Daemon *daemon)
  * @ingroup specialized
  */
 const union MHD_DaemonInfo *
-MHD_get_daemon_info (struct MHD_Daemon *daemon,
+MHD_get_daemon_info (lightning::daemon *daemon,
 		     enum MHD_DaemonInfoType info_type,
 		     ...)
 {
