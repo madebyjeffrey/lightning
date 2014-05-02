@@ -149,7 +149,7 @@ check_include_file_cxx("ws2tcpip.h" HAVE_WS2TCPIP_H)
 
 check_include_files("assert.h;limits.h;signal.h;stdlib.h;ctype.h;locale.h;stdarg.h;string.h;errno.h; math.h;stddef.h;time.h;float.h;setjmp.h;stdio.h" STDC_HEADERS)
 
-find_package(curl)
+find_package(CURL)
 
 if (CURL_FOUND)
   set(HAVE_LIBCURL 1)
