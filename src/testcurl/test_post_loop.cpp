@@ -397,8 +397,8 @@ testExternalPost ()
           if (MHD_NO == MHD_get_timeout (d, &timeout))
             timeout = 100;      /* 100ms == INFTY -- CURL bug... */
           if ((CURLM_OK == curl_multi_timeout (multi, &ctimeout)) &&
-              (ctimeout < timeout) && (ctimeout >= 0))
-            timeout = ctimeout;
+              (ctimeout >= 0) && (static_cast<unsigned long long>(ctimeout) < timeout))
+            timeout = static_cast<unsigned long long>(ctimeout);
 	  if ( (c == NULL) || (running == 0) )
 	    timeout = 0; /* terminate quickly... */
           tv.tv_sec = timeout / 1000;

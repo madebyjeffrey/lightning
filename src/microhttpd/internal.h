@@ -887,8 +887,9 @@ typedef size_t (*UnescapeCallback)(void *cls,
  * write, locally blocked, cleanup) whereas the second is about its
  * timeout state (default or custom).
  */
-struct MHD_Daemon
-{
+namespace lightning {
+  struct daemon {
+// struct MHD_Daemon
 
   /**
    * Callback function for all requests.
@@ -1067,7 +1068,7 @@ struct MHD_Daemon
   /**
    * Number of worker daemons
    */
-  unsigned int worker_pool_size;
+  size_t worker_pool_size;  // drakej fixed
 
   /**
    * The select thread handle (if we have internal select)

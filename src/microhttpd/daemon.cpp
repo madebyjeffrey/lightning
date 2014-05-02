@@ -36,7 +36,8 @@
 #include "response.h"
 #include "connection.h"
 #include "memorypool.h"
-#include <limits.h>
+// #include <limits.h>
+#include <limits>
 
 #if HAVE_SEARCH_H
 #include <search.h>
@@ -449,7 +450,7 @@ recv_tls_adapter (struct MHD_Connection *connection, void *other, size_t i)
       MHD_set_socket_errno_ (ECONNRESET);
       return res;
     }
-  if (res == i)
+  else if (static_cast<size_t>(res) == i)
     {
       connection->tls_read_ready = MHD_YES;
       connection->daemon->num_tls_read_ready++;
@@ -604,7 +605,7 @@ add_to_fd_set (MHD_socket fd,
         return MHD_NO;
     }
 #else  // ! MHD_WINSOCK_SOCKETS
-  if (fd >= fd_setsize)
+  if (fd >= 0 && static_cast<unsigned int>(fd) >= fd_setsize)
     return MHD_NO;
 #endif // ! MHD_WINSOCK_SOCKETS
   FD_SET (fd, set);
@@ -2934,7 +2935,8 @@ parse_options_va (struct MHD_Daemon *daemon,
           break;
         case MHD_OPTION_THREAD_POOL_SIZE:
           daemon->worker_pool_size = va_arg (ap, unsigned int);
-	  if (daemon->worker_pool_size >= (SIZE_MAX / sizeof (struct MHD_Daemon)))
+	  // if (daemon->worker_pool_size >= (SIZE_MAX / sizeof (struct MHD_Daemon)))
+    if (daemon->worker_pool_size >= (std::numeric_limits<size_t>::max() / sizeof (struct MHD_Daemon)))
 	    {
 #if HAVE_MESSAGES
 	      MHD_DLOG (daemon,

@@ -62,7 +62,7 @@ test_simple_large ()
   struct MHD_Connection connection;
   struct MHD_HTTP_Header header;
   struct MHD_PostProcessor *pp;
-  int i;
+  size_t i;
   int delta;
   size_t size;
   char data[102400];

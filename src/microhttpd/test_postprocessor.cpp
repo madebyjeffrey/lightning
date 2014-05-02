@@ -125,7 +125,7 @@ test_urlencoding ()
   struct MHD_HTTP_Header header;
   struct MHD_PostProcessor *pp;
   unsigned int want_off = URL_START;
-  int i;
+  size_t i;
   int delta;
   size_t size;
 
@@ -233,7 +233,7 @@ test_multipart ()
   struct MHD_HTTP_Header header;
   struct MHD_PostProcessor *pp;
   unsigned int want_off = FORM_START;
-  int i;
+  size_t i;
   int delta;
   size_t size;
 
@@ -268,7 +268,7 @@ test_nested_multipart ()
   struct MHD_HTTP_Header header;
   struct MHD_PostProcessor *pp;
   unsigned int want_off = FORM_NESTED_START;
-  int i;
+  size_t i;
   int delta;
   size_t size;
 
@@ -303,7 +303,7 @@ test_empty_value ()
   struct MHD_HTTP_Header header;
   struct MHD_PostProcessor *pp;
   unsigned int want_off = URL_EMPTY_VALUE_START;
-  int i;
+  size_t i;
   int delta;
   size_t size;
 
