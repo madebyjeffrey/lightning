@@ -203,7 +203,7 @@ elseif(MINGW) # not tested
   message("System is MINGW")
 endif()
 
-find_package(magic)
+find_package(Magic)
 
 if(HTTPS)
   find_package(gnutls)
