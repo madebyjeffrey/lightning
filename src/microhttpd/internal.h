@@ -887,9 +887,8 @@ typedef size_t (*UnescapeCallback)(void *cls,
  * write, locally blocked, cleanup) whereas the second is about its
  * timeout state (default or custom).
  */
-namespace lightning {
-  struct daemon {
-// struct MHD_Daemon
+struct MHD_Daemon
+{
 
   /**
    * Callback function for all requests.
