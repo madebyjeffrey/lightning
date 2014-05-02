@@ -1,9 +1,5 @@
 SUBDIRS = .
 
-if ENABLE_SPDY
-microspdy = microspdy.h
-endif
-
-include_HEADERS = microhttpd.h $(microspdy)
+include_HEADERS = microhttpd.h
 
 EXTRA_DIST = platform.h platform_interface.h w32functions.h

@@ -62,7 +62,7 @@ no internal copy to be done because the @emph{constant} string won't change anyw
   struct MHD_Response *response;
   int ret;
 
-  response = MHD_create_response_from_buffer (strlen (page),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (page),
                                             (void*) page, MHD_RESPMEM_PERSISTENT);
 
 @end verbatim

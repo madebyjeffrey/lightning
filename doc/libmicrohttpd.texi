@@ -1613,7 +1613,7 @@ structures through @code{Tcl_IncrRefCount()} and
 a @code{MHD_Response} object is allocated:
 
 @example
-struct MHD_Response * response = MHD_create_response_from_buffer(...);
+struct MHD_Response * response = (MHD_Response*)MHD_create_response_from_buffer(...);
 /* here: reference counter = 1 */
 @end example
 
@@ -1800,7 +1800,7 @@ const char * data = "<html><body><p>Error!</p></body></html>";
 struct MHD_Connection * connection = ...;
 struct MHD_Response *   response;
 
-response = MHD_create_response_from_buffer (strlen(data), data,
+response = (MHD_Response*)MHD_create_response_from_buffer (strlen(data), data,
                                             MHD_RESPMEM_PERSISTENT);
 MHD_queue_response(connection, 404, response);
 MHD_destroy_response(response);
@@ -2080,7 +2080,7 @@ ahc_echo (void *cls,
   username = MHD_digest_auth_get_username(connection);
   if (username == NULL)
     @{
-      response = MHD_create_response_from_buffer(strlen (DENIED),
+      response = (MHD_Response*)MHD_create_response_from_buffer(strlen (DENIED),
 					         DENIED,
 					         MHD_RESPMEM_PERSISTENT);
       ret = MHD_queue_auth_fail_response(connection, realm,
@@ -2098,7 +2098,7 @@ ahc_echo (void *cls,
   if ( (ret == MHD_INVALID_NONCE) ||
        (ret == MHD_NO) )
     @{
-      response = MHD_create_response_from_buffer(strlen (DENIED),
+      response = (MHD_Response*)MHD_create_response_from_buffer(strlen (DENIED),
 					         DENIED,
 					         MHD_RESPMEM_PERSISTENT);
       if (NULL == response)
@@ -2110,7 +2110,7 @@ ahc_echo (void *cls,
       MHD_destroy_response(response);
       return ret;
     @}
-  response = MHD_create_response_from_buffer (strlen(PAGE), PAGE,
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen(PAGE), PAGE,
  					      MHD_RESPMEM_PERSISTENT);
   ret = MHD_queue_response(connection, MHD_HTTP_OK, response);
   MHD_destroy_response(response);

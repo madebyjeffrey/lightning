@@ -84,7 +84,7 @@ server side and if so, the client should be informed with @code{MHD_HTTP_INTERNA
 
       if (buffer) free(buffer);
     
-      response = MHD_create_response_from_buffer (strlen(errorstr), (void*) errorstr,
+      response = (MHD_Response*)MHD_create_response_from_buffer (strlen(errorstr), (void*) errorstr,
                                                   MHD_RESPMEM_PERSISTENT);
 
       if (response)

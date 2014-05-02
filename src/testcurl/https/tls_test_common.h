@@ -28,6 +28,8 @@
 #include <limits.h>
 #include <gnutls/gnutls.h>
 
+#include "tls_test_keys.h"
+
 /* this enables verbos CURL version checking */
 #define DEBUG_HTTPS_TEST 0
 #define CURL_VERBOS_LEVEL 0
@@ -69,7 +71,7 @@ struct CipherDef
 };
 
 
-int curl_check_version (const char *req_version, ...);
+int curl_check_version (const char *req_version);
 int curl_uses_nss_ssl ();
 
 

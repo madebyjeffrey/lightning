@@ -1,0 +1,7 @@
+find_path(MAGIC_INCLUDE_DIR magic.h)
+find_library(MAGIC_LIBRARIES magic)
+
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(MAGIC DEFAULT_MSG MAGIC_LIBRARIES MAGIC_INCLUDE_DIR)
+
+mark_as_advanced(MAGIC_LIBRARIES MAGIC_INCLUDE_DIR)

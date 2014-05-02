@@ -291,4 +291,3 @@ test_timeout_SOURCES = \
 test_timeout_LDADD = \
   $(top_builddir)/src/microhttpd/libmicrohttpd.la \
   @LIBCURL@
-

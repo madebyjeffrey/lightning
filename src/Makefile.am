@@ -6,19 +6,8 @@ zzuftests = testzzuf
 endif
 endif
 endif
-if ENABLE_SPDY
-if HAVE_OPENSSL
-microspdy = microspdy
-if HAVE_CURL
-microspdy += spdy2http
-endif
-#if HAVE_SPDYLAY
-microspdy += testspdy
-#endif
-endif
-endif
 
-SUBDIRS = include platform microhttpd $(microspdy) examples $(curltests) $(zzuftests) .
+SUBDIRS = include platform microhttpd examples $(curltests) $(zzuftests) .
 
 if BUILD_EXAMPLES
 SUBDIRS += examples

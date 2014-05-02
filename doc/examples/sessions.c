@@ -303,7 +303,7 @@ serve_simple_form (const void *cls,
   struct MHD_Response *response;
 
   /* return static form */
-  response = MHD_create_response_from_buffer (strlen (form),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (form),
 					      (void *) form,
 					      MHD_RESPMEM_PERSISTENT);
   add_session_cookie (session, response);
@@ -345,7 +345,7 @@ fill_v1_form (const void *cls,
       return MHD_NO;
     }
   /* return static form */
-  response = MHD_create_response_from_buffer (strlen (reply),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (reply),
 					      (void *) reply,
 					      MHD_RESPMEM_MUST_FREE);
   add_session_cookie (session, response);
@@ -388,7 +388,7 @@ fill_v1_v2_form (const void *cls,
       return MHD_NO;
     }
   /* return static form */
-  response = MHD_create_response_from_buffer (strlen (reply),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (reply),
 					      (void *) reply,
 					      MHD_RESPMEM_MUST_FREE);
   add_session_cookie (session, response);
@@ -421,7 +421,7 @@ not_found_page (const void *cls,
   struct MHD_Response *response;
 
   /* unsupported HTTP method */
-  response = MHD_create_response_from_buffer (strlen (NOT_FOUND_ERROR),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (NOT_FOUND_ERROR),
 					      (void *) NOT_FOUND_ERROR,
 					      MHD_RESPMEM_PERSISTENT);
   ret = MHD_queue_response (connection, 
@@ -637,7 +637,7 @@ create_response (void *cls,
       return ret;
     }
   /* unsupported HTTP method */
-  response = MHD_create_response_from_buffer (strlen (METHOD_ERROR),
+  response = (MHD_Response*)MHD_create_response_from_buffer (strlen (METHOD_ERROR),
 					      (void *) METHOD_ERROR,
 					      MHD_RESPMEM_PERSISTENT);
   ret = MHD_queue_response (connection, 
